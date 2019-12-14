@@ -1,6 +1,6 @@
 const express = require('express');
-const List = require('./mongoose/db_list')
-const Comments = require('./mongoose/db_comment_list')
+const List = require('../mongoose/db_list')
+const Comments = require('../mongoose/db_comment_list')
 const router = express.Router();
 
 module.exports = (app) => {
@@ -94,7 +94,6 @@ module.exports = (app) => {
 
 
     app.use('/react-demo1', express.static(__dirname + '/'));
-    console.log(__dirname+ '/static')
     app.use(router);
 
 }
