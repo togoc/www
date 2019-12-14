@@ -7,7 +7,7 @@ app.use(bodyparser.urlencoded({ extende: false }));
 app.use(bodyparser.json())
 
 //react-demo1
-require('./react-demo1-build/serve')(app)
+require('./react-demo1-build/router')(app)
 
 
 
