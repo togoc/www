@@ -1,0 +1,25 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "* `npm install -g create-react-app`\r * `npx create-react-app demo`\r   * 可能会比较慢\r * `npm start`\r   ``` js\r   \"scripts\": {\r     \"start\": \"react-scripts start\",\r     \"build\": \"react-scripts build\",\r     \"test\": \"react-scripts test\",\r     \"eject\": \"react-scripts eject\"\r   }\r   ```\r * 开始体验吧\r <!-- https://www.jianshu.com/p/77bf3944b0f4 -->",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/togoc/react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/togoc/react/issues"
+  },
+  "homepage": "https://github.com/togoc/react#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.13"
+  }
+}
