@@ -20,7 +20,8 @@ require('./vue-todo/routers/user')(app)
 //vue-pro
 require('./vue-pro/router')(app)
 
-
+//element-ui
+require('./element-ui/router')(app)
 
 
 app.listen(80, () => {
