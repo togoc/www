@@ -49,7 +49,6 @@ router.post("/login", (req, res) => {
     User.findOne({ email }).then(user => {
         if (!user)
             return res.status(404).json({ email: "用户不存在!" })
-        console.log(password, user.password)
         bcrypt.compare(password, user.password)
             .then(isMatch => {
                 if (isMatch) {
@@ -72,12 +71,6 @@ router.post("/login", (req, res) => {
     })
 })
 
-//  登录: $router : /users/current
-// Private
-router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
-    res.json(req.user)
-        // res.json({ msg: "success" })
-})
 
 
   

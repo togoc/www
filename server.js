@@ -24,3 +24,5 @@ require('./vue-pro/router')(app)
 //element-ui
 require('./element-ui/router')(app)
 
+//login
+require('./passport')(app)
