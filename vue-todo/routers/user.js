@@ -1,6 +1,6 @@
 const express = require('express');
 const gravatar = require('gravatar')
-const User = require('../db/db_user')
+const User = require('../../passport/db_user')
 const router = express.Router()
 module.exports = app => {
 

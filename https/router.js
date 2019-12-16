@@ -11,12 +11,6 @@ module.exports = app => {
     var httpsServer = https.createServer(options, app);
     var httpServer = http.createServer(app);
 
-    app.get('/test', function(req, res, next) {
-        res.send({ msg: 'hello' });
-    });
-
-
-
 
     //https监听3000端口
     httpsServer.listen(81);

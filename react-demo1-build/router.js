@@ -1,31 +1,34 @@
 const express = require('express');
 const List = require('../mongoose/db_list')
 const Comments = require('../mongoose/db_comment_list')
+const routers = require('../routers')
 const router = express.Router();
 
 module.exports = (app) => {
 
-    
-    router.get('/lists', (req, res) => {
+    // '/lists'
+    router.get(routers.react_demo1_list, (req, res) => {
         List.find({}, ['_id', 'title']).then(list => {
             res.status(200).json(list);
         })
     });
 
-
-    router.get('/people', (req, res) => {
+    // '/people'
+    router.get(routers.react_demo1_people, (req, res) => {
         List.find({}, ['_id', 'title', 'author']).sort({ _id: -1 }).then(list => {
             res.status(200).json(list);
         })
     });
 
-    router.get('/comment/:id', (req, res) => {
+    // '/comment/:id'
+    router.get(routers.react_demo1_comment, (req, res) => {
         Comments.find({ tid: req.params.id }).sort({ _id: 1 }).then(list => {
             res.status(200).json(list);
         }).catch(err => console.log(err))
     });
 
-    router.get('/comment/like/:id', (req, res) => {
+    // '/comment/like/:id'
+    router.get(routers.react_demo1_comment_like, (req, res) => {
         Comments.updateOne({ _id: req.params.id }, { $push: { "likes": req.query.uname }, $pull: { "dislikes": req.query.uname } })
             .then(like => {
                 Comments.find({ _id: req.params.id }).sort({ _id: 1 }).then(list => {
@@ -34,7 +37,8 @@ module.exports = (app) => {
             }).catch(err => console.log(err))
     });
 
-    router.get('/comment/dislike/:id', (req, res) => {
+    // '/comment/dislike/:id'
+    router.get(routers.react_demo1_comment_dislike, (req, res) => {
         Comments.updateOne({ _id: req.params.id }, { $pull: { "likes": req.query.uname }, $push: { "dislikes": req.query.uname } })
             .then(like => {
                 Comments.find({ _id: req.params.id }).sort({ _id: 1 }).then(list => {
@@ -43,8 +47,8 @@ module.exports = (app) => {
             }).catch(err => console.log(err))
     });
 
-
-    router.post('/addcomment/:id', (req, res) => {
+    // '/addcomment/:id'
+    router.post(routers.react_demo1_addcomment, (req, res) => {
         req.body.tid = req.params.id
         comment = new Comments(req.body)
         comment.save().then(list => {
@@ -62,8 +66,8 @@ module.exports = (app) => {
 
 
 
-
-    router.post('/add', (req, res) => {
+    // '/add'
+    router.post(routers.react_demo1_add, (req, res) => {
         if (!req.body.title || !req.body.author || !req.body.content || !req.body.translate || !req.body.reference) {
             res.status(401).json({
                 error: 'something was empty'
@@ -83,8 +87,8 @@ module.exports = (app) => {
         }).catch(err => console.log(err))
 
     });
-
-    router.get('/lists/:id', (req, res) => {
+    // '/lists/:id'
+    router.get(routers.react_demo1_list, (req, res) => {
         List.findOne({ _id: req.params.id }).then(list => {
             res.status(200).json(list);
         }).catch(err => {
@@ -92,8 +96,8 @@ module.exports = (app) => {
         })
     });
 
-
-    app.use('/react-demo1', express.static(__dirname + '/'));
+    /// 'react-demo1'
+    app.use(routers.react_demo1, express.static(__dirname + '/'));
     app.use(router);
 
 }
