@@ -6,7 +6,7 @@ var Schema = mongoose.Schema
 var userSchema = Schema({
     name: {
         type: String,
-        default: "佚名"
+        require: true
     },
     password: {
         type: String,
@@ -17,15 +17,13 @@ var userSchema = Schema({
         default: "employee"
     },
     gender: {
-        type: String,
-        default: "男"
+        type: String
     },
     avatar: {
         type: String
     },
     email: {
-        type: String,
-        default: "xxx@xxx.com"
+        type: String
     },
     date: {
         type: Number,
@@ -34,4 +32,4 @@ var userSchema = Schema({
 })
 
 
-module.exports = mongoose.model("vueproUsers", userSchema)
+module.exports = mongoose.model("users", userSchema)

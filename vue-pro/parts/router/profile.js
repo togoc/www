@@ -16,7 +16,6 @@ router.post("/add", passport.authenticate("jwt", { session: false }), (req, res)
     if (req.body.income) profileFields.income = req.body.income
     if (req.body.cash) profileFields.cash = req.body.cash
     if (req.body.remark) profileFields.remark = req.body.remark
-    console.log(profileFields)
     new Profile(profileFields).save()
         .then(profile => {
             res.json({ msg: "success" })
@@ -39,7 +38,6 @@ router.get("/:id", passport.authenticate("jwt", { session: false }), (req, res) 
 })
 
 router.get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
-    console.log(req.url)
     Profile.find()
         .then(profile => {
             if (!profile)
@@ -56,7 +54,6 @@ router.post("/edit/:id", passport.authenticate("jwt", { session: false }), (req,
     if (req.body.income) profileFields.income = req.body.income
     if (req.body.cash) profileFields.cash = req.body.cash
     if (req.body.remark) profileFields.remark = req.body.remark
-    console.log(req.params)
     Profile.updateOne({ _id: req.params.id }, { $set: profileFields }, { new: true })
         .then(profile => res.json(profile))
 })

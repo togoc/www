@@ -17,9 +17,10 @@ module.exports = app => {
     //  注册: $router : /users/register
     router.post("/register", (req, res) => {
         console.log(req.body)
-        User.findOne({ email: req.body.email }).then((user) => {
+        if (!req.body.name && !req.body.email) return res.status(400).json({ message: '缺少邮箱和用户名' });
+        User.findOne(req.body.email ? { email: req.body.email } : { name: req.body.name }).then((user) => {
             if (user) {
-                return res.status(400).json({ email: "邮箱已经被注册" })
+                return res.status(400).json({ msg: req.body.email ? "邮箱已经被注册" : "用户名已经被注册" })
             } else {
                 let avatar = gravatar.url(req.body.email, { s: '200', r: 'pg', d: 'mm' });
                 let newUser = new User({
@@ -29,34 +30,37 @@ module.exports = app => {
                     identity: req.body.identity,
                     password: req.body.password
                 })
-                bcrypt.genSalt(10, function(err, salt) {
-                    bcrypt.hash(newUser.password, salt, function(err, hash) {
-                        if (err) throw err;
-                        newUser.password = hash
-                        newUser.save().then(re => res.status(200).json(re)).catch(err => console.log(err))
-                        console.log(newUser)
+                if (req.body.password) {
+                    bcrypt.genSalt(10, function(err, salt) {
+                        bcrypt.hash(newUser.password, salt, function(err, hash) {
+                            if (err) throw err;
+                            newUser.password = hash
+                            newUser.save().then(re => res.status(200).json(re)).catch(err => console.log(err))
+                        });
                     });
-                });
+                } else {
+                    newUser.save().then(re => res.status(200).json(re)).catch(err => console.log(err))
+                }
             }
+        }).catch(err => {
+            console.log(err)
         })
     })
 
 
     //  登录: $router : /users/register
     router.post("/login", (req, res) => {
-        let email = req.body.email
-        let password = req.body.password
-        if (!email || !password) return res.status(404).json({ message: '有空值' });
-        //数据库匹配
-        User.findOne({ email }).then(user => {
+        let { email, password, name } = req.body
+        User.findOne(email ? { email } : { name }).then(user => {
             if (!user)
                 return res.status(404).json({ email: "用户不存在!" })
-            bcrypt.compare(password, user.password)
-                .then(isMatch => {
-                    if (isMatch) {
-                        const rule = { id: user.id, name: user.name, identity: user.identity, avatar: user.avatar }
-                            // jwt.sign("规则", "加密名字", "过期时间", "箭头函数")
-                        jwt.sign(rule, config.secret, { expiresIn: 3600 }, (err, token) => {
+            if (user.password) {
+                if (!password) return res.status(400).json({ password: "密码错误!" })
+                bcrypt.compare(password, user.password)
+                    .then(isMatch => {
+                        if (isMatch) {
+                            let rule = { id: user.id, name: user.name, identity: user.identity, avatar: user.avatar }
+                            jwt.sign(rule, config.secret, { expiresIn: 3600 }, (err, token) => {
                                 res.json({
                                     success: true,
                                     token: "Bearer " + token
@@ -65,11 +69,22 @@ module.exports = app => {
                                     console.log(err)
                                 }
                             })
-                            // res.json({ msg: isMatch })
-                    } else {
-                        res.status(400).json({ password: "密码错误!" })
+                        } else {
+                            res.status(400).json({ password: "密码错误!" })
+                        }
+                    })
+            } else {
+                let { name, _id, email } = user
+                jwt.sign({ name, _id, email }, config.secret, { expiresIn: 3600 }, (err, token) => {
+                    res.json({
+                        success: true,
+                        token: "Bearer " + token
+                    })
+                    if (err) {
+                        console.log(err)
                     }
                 })
+            }
         })
     })
 
