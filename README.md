@@ -39,13 +39,30 @@
   + 基础内容
 + 数据库 : MongoDB
   + 增\删\改\查
-+ 加密 : bcryptjs
++ 密码加密 : bcryptjs
   + 加密\匹配
 + token : jsonwebtoken + passport + passport-jwt
-  + 
+  + 生成\验证
 # 
-## http://106.13.184.92/vue-todo/
-
+## todo [demo](http://106.13.184.92/vue-todo/) [源码](https://github.com/togoc/vue-todoList)
+### 客户端
++ 主要 : vue
+  + 基础内容
++ 路由 : vue-router
+  + 跳转\重定向
++ 状态管理 : vuex
+  + 传\取
++ Ajax请求 : axios
+  + Get\Post
+  + 响应拦截
++ UI : element-ui
+### 服务端
++ node + express + mongoose
+  + 基础内容
++ 数据库 : MongoDB
+  + 增\删\改\查
++ 密码加密 : bcryptjs
+  + 加密\匹配
 
 # 
 
