@@ -6,5 +6,6 @@ module.exports = {
         authSource: "www",
         user: "www",
         pass: "98d1e3bcdd"
-    }
+    },
+    secret: "secret",
 }

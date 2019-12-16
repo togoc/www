@@ -3,17 +3,29 @@ var mongoose = require("mongoose")
 var Schema = mongoose.Schema
 
 //创建集合
-var UserSchema = Schema({
-    email: {
+var userSchema = Schema({
+    name: {
         type: String,
-        default: "xxx@xxx.com"
+        default: "佚名"
+    },
+    password: {
+        type: String,
+        require: true
+    },
+    identity: {
+        type: String,
+        default: "employee"
+    },
+    gender: {
+        type: String,
+        default: "男"
     },
     avatar: {
         type: String
     },
-    name: {
+    email: {
         type: String,
-        require: true
+        default: "xxx@xxx.com"
     },
     date: {
         type: Number,
@@ -22,4 +34,4 @@ var UserSchema = Schema({
 })
 
 
-module.exports = mongoose.model("User", UserSchema)
+module.exports = mongoose.model("vueproUsers", userSchema)
