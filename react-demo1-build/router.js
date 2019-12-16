@@ -7,7 +7,7 @@ const router = express.Router();
 module.exports = (app) => {
 
     // '/lists'
-    router.get(routers.react_demo1_list, (req, res) => {
+    router.get(routers.react_demo1_lists, (req, res) => {
         List.find({}, ['_id', 'title']).then(list => {
             res.status(200).json(list);
         })
