@@ -4,7 +4,6 @@ const router = express.Router()
 const gravatar = require('gravatar')
 const jwt = require('jsonwebtoken')
 const config = require("../config")
-const passport = require("passport")
     //加密
 const bcrypt = require("bcryptjs")
 
@@ -45,6 +44,7 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
     let email = req.body.email
     let password = req.body.password
+    if(!email||!password) return  res.status(404).json({message:'有空值'});
         //数据库匹配
     User.findOne({ email }).then(user => {
         if (!user)

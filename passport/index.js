@@ -1,9 +1,9 @@
-const express = require('express');
 const passport = require("passport")
 const jwt = require('jsonwebtoken')
 const bcrypt = require("bcryptjs")
 const User = require('./db_user')
-require("./passport")(passport)
+const routers = require('../routers')
+// require("./passport")(passport)
 
 // bcrypt.genSalt(10, function(err, salt) {
 //     bcrypt.hash('togoc', salt, function(err, hash) {
@@ -16,41 +16,57 @@ require("./passport")(passport)
 
 
 module.exports = app => {
-    app.use(passport.initialize())
+    // app.use(passport.initialize())
 
-    // jwt.sign("规则", "加密名字", "过期时间", "箭头函数")
-    app.post('/register', (req, res) => {
+    // '/register'
+    app.post(routers.index_register, (req, res) => {
         console.log(req.body.name)
         if (!req.body.name) return res.status(400).json({ message: '没有用户名' });
         User.find({ name: req.body.name }).then(users => {
-                if (users.length === 0) {
-                    let uesr = new User({
-                        name: req.body.name
+            if (users.length === 0) {
+                let uesr = new User({
+                    name: req.body.name
+                })
+                uesr.save().then(save => {
+                    let { _id, name, email, date } = save
+                    jwt.sign({ _id, name, email, date }, 'secret', { expiresIn: 3600 }, (err, token) => {
+                        res.status(200).json({
+                            success: true,
+                            token: "Bearer " + token
+                        })
                     })
-                    uesr.save().then(save => {
-                        console.log('save  ' + save)
-                            // const rule = { id: 123, name: 'togoc' }
-                    })
+                })
 
-                } else {
-                    return res.status(400).json({ message: '用户已存在' });
-                }
-            })
-            // jwt.sign(rule, 'secret', { expiresIn: 3600 }, (err, token) => {
-            //     res.json({
-            //         success: true,
-            //         token: "Bearer " + token
-            //     })
-            // })
+            } else {
+                return res.status(400).json({ message: '用户已存在' });
+            }
+        }).catch(err => {
+            res.status(400).json(err);
+        })
+
     });
 
-    app.get('/login', passport.authenticate("jwt", { session: false }), (req, res) => {
-        console.log(req.body.name)
-
-        res.json(req.user)
+    // '/login'
+    app.post(routers.index_login, (req, res) => {
+        User.findOne({ name: req.body.name }).then(user => {
+            if (user) {
+                let { _id, name, email, date } = user
+                jwt.sign({ _id, name, email, date }, 'secret', { expiresIn: 3600 }, (err, token) => {
+                    res.status(200).json({
+                        success: true,
+                        token: "Bearer " + token
+                    })
+                })
+            } else {
+                res.status(400).json({ message: '无匹配' });
+            }
+        }).catch(err => {
+            res.status(400).json(err);
+        })
     });
 
-    app.get('/', passport.authenticate("jwt", { session: false }), (req, res) => {
+    app.get(routers.index, passport.authenticate("jwt", { session: false }), (req, res) => {
+        console.log(req.user)
         res.send('ok');
     });
 

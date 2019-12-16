@@ -1,4 +1,11 @@
 module.exports = {
+
+    //passport index.js
+    index:'/',
+    index_login:'/login',
+    index_register:'/register',
+
+
     elment: '/element-ui',
 
     react_demo1: '/react-demo1',
@@ -18,5 +25,5 @@ module.exports = {
     vue_todo: '/vue-todo',
 
 
-    
+
 }

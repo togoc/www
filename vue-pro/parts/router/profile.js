@@ -20,16 +20,16 @@ router.post("/add", passport.authenticate("jwt", { session: false }), (req, res)
     new Profile(profileFields).save()
         .then(profile => {
             res.json({ msg: "success" })
-            
-        }).catch(err=>{
+
+        }).catch(err => {
             res.status(400).json({
-                msg:"添加失败,请检查数据类型!",err
+                msg: "添加失败,请检查数据类型!",
+                err
             })
         })
 })
 
 router.get("/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
-    console.log(req.params)
     Profile.findOne({ _id: req.params.id })
         .then(profile => {
             if (!profile)
