@@ -12,18 +12,19 @@ module.exports = (app) => {
         // console.log('files----------', req.files[0])
         //接收文件
         if (req.files) {
-            fs.readFile(path.resolve('./mallshop/images/') + req.files[0].filename, (err, data) => {
+            fs.readFile(path.resolve('./mallshop/images/') + '/' + req.files[0].filename, (err, data) => {
                 if (err) {
                     res.status(500).json({
                         message: '文件储存出错'
                     });
                     console.log(err)
                 } else {
-                    fs.renameSync(path.resolve('./mallshop/images/') + req.files[0].filename, path.resolve('./mallshop/images/') + req.query.id + '.png')
+                    console.log()
+                    fs.renameSync(path.resolve('./mallshop/images/') + '/' + req.files[0].filename, path.resolve('./mallshop/images/') + '/' + req.query.id + '.png ')
                         // console.log(path.resolve('./mallshop/images/' + req.query.id + '.png'))
                         // mini id  0
                     let id = req.query.id.split('-')
-                    let url = "http://106.13.184.92" + '/mallshop/images/' + req.query.id + '.png'
+                    let url = "http://106.13.184.92" + '/mallshop/images/' + '/' + req.query.id + '.png'
                     if (id[0] === 'mini') {
                         let str = "mini_pic." + id[2]
                         Goods.updateOne({ _id: id[1] }, {
