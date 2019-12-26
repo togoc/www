@@ -26,7 +26,7 @@ module.exports = (app) => {
                         // console.log(path.resolve('./mallshop/images/' + req.query.id + '.png'))
                         // mini id  0
                     let id = req.query.id.split('-')
-                    let url = "http://192.168.3.3/" + 'mallshop/images/' + req.query.id + '.png'
+                    let url = "http://106.13.184.92/" + 'mallshop/images/' + req.query.id + '.png'
                     if (id[0] === 'mini') {
                         let str = "mini_pic." + id[2]
                         Goods.updateOne({ _id: id[1] }, {
@@ -71,7 +71,7 @@ module.exports = (app) => {
             .then(delItem => {
                 try {
                     console.log(req.body.value)
-                    fs.unlinkSync('.' + req.body.value.split('http://192.168.3.3')[1])
+                    fs.unlinkSync('.' + req.body.value.split('http://106.13.184.92')[1])
                     res.status(200).json({
                         message: "删除成功!"
                     });
