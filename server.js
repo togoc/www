@@ -26,3 +26,7 @@ require('./element-ui/router')(app)
 
 //login
 require('./passport')(app)
+
+//mallshop
+require('./mallshop/router')(app)
+

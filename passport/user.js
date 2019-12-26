@@ -11,16 +11,15 @@ module.exports = app => {
 
     //  测试: $router : /users/test
     router.get("/test", (req, res) => {
-        res.send("ok test")
-    })
-
-    //  注册: $router : /users/register
+            res.send("ok test")
+        })
+        //  注册: $router : /users/register
     router.post("/register", (req, res) => {
         console.log(req.body)
-        if (!req.body.name && !req.body.email) return res.status(400).json({ message: '缺少邮箱和用户名' });
+        if (!req.body.name && !req.body.email) return res.status(401).json({ message: '缺少邮箱和用户名' });
         User.findOne(req.body.email ? { email: req.body.email } : { name: req.body.name }).then((user) => {
             if (user) {
-                return res.status(400).json({ msg: req.body.email ? "邮箱已经被注册" : "用户名已经被注册" })
+                return res.status(401).json({ message: req.body.email ? "邮箱已经被注册" : "用户名已经被注册" })
             } else {
                 let avatar = gravatar.url(req.body.email, { s: '200', r: 'pg', d: 'mm' });
                 let newUser = new User({
@@ -35,17 +34,25 @@ module.exports = app => {
                         bcrypt.hash(newUser.password, salt, function(err, hash) {
                             if (err) throw err;
                             newUser.password = hash
-                            newUser.save().then(re => res.status(200).json(re)).catch(err => console.log(err))
+                            newUser.save().then(re => res.status(200).json({
+                                message: '注册成功'
+                            })).catch(err => console.log(err))
                         });
                     });
                 } else {
-                    newUser.save().then(re => res.status(200).json(re)).catch(err => console.log(err))
+                    newUser.save().then(re => res.status(200).json({
+                        message: '注册成功'
+                    })).catch(err => console.log(err))
                 }
             }
         }).catch(err => {
-            console.log(err)
+            res.status(500).json({ message: "数据库请求错误", err })
         })
     })
+
+    // 400 （错误请求） 服务器不理解请求的语法。
+    // 401 （未授权） 请求要求身份验证。 
+    // 403 （禁止） 服务器拒绝请求。
 
 
     //  登录: $router : /users/register
@@ -53,9 +60,10 @@ module.exports = app => {
         let { email, password, name } = req.body
         User.findOne(email ? { email } : { name }).then(user => {
             if (!user)
-                return res.status(404).json({ email: "用户不存在!" })
+                return res.status(401).json({ message: "用户不存在!" })
             if (user.password) {
-                if (!password) return res.status(400).json({ password: "密码错误!" })
+                console.log(password)
+                if (!password) return res.status(401).json({ message: "密码错误1!" })
                 bcrypt.compare(password, user.password)
                     .then(isMatch => {
                         if (isMatch) {
@@ -70,7 +78,7 @@ module.exports = app => {
                                 }
                             })
                         } else {
-                            res.status(400).json({ password: "密码错误!" })
+                            res.status(401).json({ message: "密码错误2!" })
                         }
                     })
             } else {
@@ -85,13 +93,14 @@ module.exports = app => {
                     }
                 })
             }
+        }).catch(err => {
+            res.status(500).json({ message: "数据库请求错误", err })
         })
     })
 
 
 
     app.use(router);
-
 
 
 }
