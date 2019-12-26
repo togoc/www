@@ -1,5 +1,8 @@
+let host = null
+process.env.NODE_env === 'development' ? host = '127.0.0.1' : '106.13.184.92'
 module.exports = {
-    dbURI: "mongodb://106.13.184.92:27017/www",
+    dbURI: "mongodb://" + host + ":27017/www",
+    localhost: 'http://' + host,
     options: {
         useNewUrlParser: true, //使用客户端
         useUnifiedTopology: true, //报错

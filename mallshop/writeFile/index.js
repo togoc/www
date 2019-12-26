@@ -5,8 +5,9 @@ const passport = require("passport")
 const multer = require('multer')
 const fs = require('fs')
 const Goods = require('../db/db_mallshop_goods')
+const config = require('../../config')
 
-
+console.log(config.localhost)
 module.exports = (app) => {
     router.post('/mallshop/postfile', passport.authenticate("jwt", { session: false }), (req, res) => {
         // console.log('files----------', req.files[0])
@@ -21,7 +22,7 @@ module.exports = (app) => {
                 } else {
                     fs.renameSync(path.resolve('./mallshop/images') + '/' + req.files[0].filename, path.resolve('./mallshop/images') + '/' + req.query.id + '.png')
                     let id = req.query.id.split('-')
-                    let url = "http://106.13.184.92" + '/mallshop/images/' + req.query.id + '.png'
+                    let url = config.localhost + '/mallshop/images/' + req.query.id + '.png'
                     if (id[0] === 'mini') {
                         let str = "mini_pic." + id[2]
                         Goods.updateOne({ _id: id[1] }, {
@@ -65,7 +66,7 @@ module.exports = (app) => {
             })
             .then(delItem => {
                 try {
-                    fs.unlinkSync(path.resolve('.' + req.body.value.split('http://106.13.184.92')[1]))
+                    fs.unlinkSync(path.resolve('.' + req.body.value.split(config.localhost)[1]))
                     res.status(200).json({
                         message: "删除成功!"
                     });
