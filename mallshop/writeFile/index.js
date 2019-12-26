@@ -6,22 +6,22 @@ const multer = require('multer')
 const fs = require('fs')
 const Goods = require('../db/db_mallshop_goods')
 
-
+console.log(path.resolve('./mallshop/images/'))
 
 module.exports = (app) => {
     router.post('/mallshop/postfile', passport.authenticate("jwt", { session: false }), (req, res) => {
-        console.log('body-----------', req.body)
-        console.log('query-----------', req.query)
-            // console.log('files----------', req.files[0])
-            //接收文件
+        // console.log('files----------', req.files[0])
+        //接收文件
         if (req.files) {
-            fs.readFile('./mallshop/images/' + req.files[0].filename, (err, data) => {
+            fs.readFile(path.resolve('./mallshop/images/') + req.files[0].filename, (err, data) => {
                 if (err) {
                     res.status(500).json({
                         message: '文件储存出错'
                     });
                     console.log(err)
                 } else {
+                    console.log('./mallshop/images/' + req.files[0].filename)
+                    console.log('./mallshop/images/' + req.query.id + '.png')
                     fs.renameSync('./mallshop/images/' + req.files[0].filename, './mallshop/images/' + req.query.id + '.png')
                         // console.log(path.resolve('./mallshop/images/' + req.query.id + '.png'))
                         // mini id  0
