@@ -6,6 +6,7 @@ const multer = require('multer')
 const fs = require('fs')
 const Goods = require('../db/db_mallshop_goods')
 
+console.log(path.resolve('./mallshop/images') + '/' + '1111' + '.png ')
 
 module.exports = (app) => {
     router.post('/mallshop/postfile', passport.authenticate("jwt", { session: false }), (req, res) => {
@@ -19,12 +20,12 @@ module.exports = (app) => {
                     });
                     console.log(err)
                 } else {
-                    console.log()
-                    fs.renameSync(path.resolve('./mallshop/images/') + '/' + req.files[0].filename, path.resolve('./mallshop/images/') + '/' + req.query.id + '.png ')
+                    console.log(path.resolve('./mallshop/images') + '/' + req.query.id + '.png ')
+                    fs.renameSync(path.resolve('./mallshop/images/') + '/' + req.files[0].filename, path.resolve('./mallshop/images') + '/' + req.query.id + '.png ')
                         // console.log(path.resolve('./mallshop/images/' + req.query.id + '.png'))
                         // mini id  0
                     let id = req.query.id.split('-')
-                    let url = "http://106.13.184.92" + '/mallshop/images/' + '/' + req.query.id + '.png'
+                    let url = "http://106.13.184.92" + '/mallshop/images/' + req.query.id + '.png'
                     if (id[0] === 'mini') {
                         let str = "mini_pic." + id[2]
                         Goods.updateOne({ _id: id[1] }, {
