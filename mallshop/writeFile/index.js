@@ -19,8 +19,7 @@ module.exports = (app) => {
                     });
                     console.log(err)
                 } else {
-                    console.log(path.resolve('./mallshop/images') + '/' + req.query.id + '.png ')
-                    fs.renameSync(path.resolve('./mallshop/images') + '/' + req.files[0].filename, path.resolve('./mallshop/images') + '/' + req.query.id + '.png ')
+                    fs.renameSync(path.resolve('./mallshop/images') + '/' + req.files[0].filename, path.resolve('./mallshop/images') + '/' + req.query.id + '.png')
                     let id = req.query.id.split('-')
                     let url = "http://106.13.184.92" + '/mallshop/images/' + req.query.id + '.png'
                     if (id[0] === 'mini') {
