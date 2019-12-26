@@ -6,7 +6,6 @@ const multer = require('multer')
 const fs = require('fs')
 const Goods = require('../db/db_mallshop_goods')
 
-console.log(path.resolve('./mallshop/images/'))
 
 module.exports = (app) => {
     router.post('/mallshop/postfile', passport.authenticate("jwt", { session: false }), (req, res) => {
@@ -20,13 +19,11 @@ module.exports = (app) => {
                     });
                     console.log(err)
                 } else {
-                    console.log('./mallshop/images/' + req.files[0].filename)
-                    console.log('./mallshop/images/' + req.query.id + '.png')
-                    fs.renameSync('./mallshop/images/' + req.files[0].filename, './mallshop/images/' + req.query.id + '.png')
+                    fs.renameSync(path.resolve('./mallshop/images/') + req.files[0].filename, path.resolve('./mallshop/images/') + req.query.id + '.png')
                         // console.log(path.resolve('./mallshop/images/' + req.query.id + '.png'))
                         // mini id  0
                     let id = req.query.id.split('-')
-                    let url = "http://106.13.184.92/" + 'mallshop/images/' + req.query.id + '.png'
+                    let url = "http://106.13.184.92" + '/mallshop/images/' + req.query.id + '.png'
                     if (id[0] === 'mini') {
                         let str = "mini_pic." + id[2]
                         Goods.updateOne({ _id: id[1] }, {
@@ -70,12 +67,12 @@ module.exports = (app) => {
             })
             .then(delItem => {
                 try {
-                    console.log(req.body.value)
-                    fs.unlinkSync('.' + req.body.value.split('http://106.13.184.92')[1])
+                    fs.unlinkSync(path.resolve('.' + req.body.value.split('http://106.13.184.92')[1]))
                     res.status(200).json({
                         message: "删除成功!"
                     });
                 } catch (error) {
+                    console.log(error)
                     res.status(400).json({
                         message: "删除出错!",
                         error
@@ -86,6 +83,7 @@ module.exports = (app) => {
 
 
     //处理"multipart/form-data"类型文件(post上传的)
-    app.use(multer({ dest: './mallshop/images' }).array('mallshop')); //此处的array('file')对应html部分的name
+    //路径为根目录开始的 服务器再根目录
+    app.use(multer({ dest: path.resolve('./mallshop/images/') }).array('mallshop')); //此处的array('file')对应html部分的name
     app.use(router);
 }
