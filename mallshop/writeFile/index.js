@@ -29,7 +29,7 @@ module.exports = (app) => {
                                 [str]: url
                             }
                         }).then(rs => {
-                            res.status(200).json({
+                            res.status(201).json({
                                 message: "保存成功"
                             });
                         })
@@ -40,7 +40,7 @@ module.exports = (app) => {
                                 [str]: url
                             }
                         }).then(rs => {
-                            res.status(200).json({
+                            res.status(201).json({
                                 message: "保存成功"
                             });
                         })
