@@ -5,7 +5,6 @@ let { dbURI, options } = config
 
 // Build the connection string
 // Create the database connection
-
 mongoose.connect(dbURI, {
     ...options,
     useNewUrlParser: true,
