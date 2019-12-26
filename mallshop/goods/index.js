@@ -14,7 +14,7 @@ module.exports = app => {
         Goods.findOne({ uid: req.user._id, _id: req.body._id }, ['_id']).then(goods => {
                 if (goods) {
                     Goods.updateOne({ _id: goods._id }, req.body).then(newGoods => {
-                        res.status(200).json({
+                        res.status(201).json({
                             message: '商品修改成功',
                             loadId: goods._id
                         });
@@ -29,7 +29,7 @@ module.exports = app => {
                         ...req.body
                     })
                     good.save().then(good => {
-                        res.status(200).json({
+                        res.status(201).json({
                             message: '商品存储成功',
                             loadId: good._id
                         });
