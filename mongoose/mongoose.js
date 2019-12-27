@@ -5,6 +5,9 @@ let { dbURI, options } = config
 
 // Build the connection string
 // Create the database connection
+if (process.env.NODE_env === 'development') {
+    dbURI = 'mongodb://127.0.0.1:27017/www'
+}
 mongoose.connect(dbURI, {
     ...options,
     useNewUrlParser: true,

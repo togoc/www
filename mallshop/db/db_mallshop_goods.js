@@ -58,7 +58,10 @@ var mallshop_goods = Schema({
     state: {
         type: String,
         default: 'out'
-    }
+    },
+    style: {
+        type: Array
+    },
 })
 
 // uid: '123',
