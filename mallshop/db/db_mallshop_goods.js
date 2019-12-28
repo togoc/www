@@ -4,7 +4,7 @@ var Schema = mongoose.Schema
 
 //创建集合
 var mallshop_goods = Schema({
-    uid: {
+    suid: {
         type: String,
         require: true
     },

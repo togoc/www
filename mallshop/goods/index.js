@@ -78,6 +78,24 @@ module.exports = app => {
         }
     });
 
+    router.get('/mallshop/goodsitem', passport.authenticate('jwt', { session: false }), (req, res) => {
+        let { id } = req.query
+        try {
+            Goods.findOne({ _id: id }).then(item => {
+                if (item) {
+                    res.status(200).json(item);
+                }
+            })
+        } catch (error) {
+            res.status(500).json({
+                message: '数据库储存出错',
+                error
+            });
+        }
+    });
+
+
+
 
     app.use(router);
 }

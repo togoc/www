@@ -7,7 +7,6 @@ const fs = require('fs')
 const Goods = require('../db/db_mallshop_goods')
 const config = require('../../config')
 
-console.log(config.localhost)
 module.exports = (app) => {
     router.post('/mallshop/postfile', passport.authenticate("jwt", { session: false }), (req, res) => {
         // console.log('files----------', req.files[0])
