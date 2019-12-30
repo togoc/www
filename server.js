@@ -1,6 +1,10 @@
 const express = require('express');
+var compression = require('compression')
 const app = express()
 
+
+//启用gzip
+app.use(compression());
 
 //post body
 const bodyparser = require('body-parser');
@@ -29,4 +33,3 @@ require('./passport')(app)
 
 //mallshop
 require('./mallshop/router')(app)
-
