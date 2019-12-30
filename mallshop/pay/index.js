@@ -53,9 +53,39 @@ module.exports = app => {
         });
 
 
+        router.get('/mallshop/getbuylist', passport.authenticate("jwt", { session: false }), (req, res) => {
+            let { id } = req.user
+            BuyList.find({ buyuid: req.user.id }).then(list => {
+                res.status(200).json(list);;
+            })
+        });
 
-
-
+        router.post('/mallshop/editbuylist', passport.authenticate("jwt", { session: false }), (req, res) => {
+            try {
+                let { type, query } = req.body
+                if (type === 'cancel') {
+                    if (Array.isArray(query)) {
+                        BuyList.updateMany({
+                            $or: query,
+                        }, { $set: { state: 3 } }).then(list => {
+                            res.status(200).json({
+                                message: '取消成功'
+                            });
+                            console.log(list)
+                        })
+                    } else {
+                        res.status(500).json({
+                            message: '错误请求'
+                        });
+                    }
+                }
+            } catch (error) {
+                res.status(500).json({
+                    message: '错误请求'
+                });
+                console.log(error)
+            }
+        });
 
         app.use(router);
     }

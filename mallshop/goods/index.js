@@ -7,11 +7,21 @@ module.exports = app => {
     //添加 商品
     router.post('/mallshop/addgoods', passport.authenticate('jwt', { session: false }), (req, res) => {
         // 处理 
-        req.body.uid = req.user._id
+        if (req.user.identity !== 'business') {
+            return res.status(500).json({
+                message: '用户类型出错',
+            });
+        }
+
+
+
+
+
+        req.body.suid = req.user._id
             // console.log(req.user)
 
         // 判断(同一个商家 不能有同名商品)
-        Goods.findOne({ uid: req.user._id, _id: req.body._id }, ['_id']).then(goods => {
+        Goods.findOne({ suid: req.user._id, _id: req.body._id }, ['_id']).then(goods => {
                 if (goods) {
                     Goods.updateOne({ _id: goods._id }, req.body).then(newGoods => {
                         res.status(201).json({
@@ -53,7 +63,8 @@ module.exports = app => {
     router.post('/mallshop/manageList', passport.authenticate('jwt', { session: false }), (req, res) => {
         let { index } = req.body
         if (req.body.type === 'business') {
-            Goods.find({ uid: req.user._id }).sort({ sold: -1 }).then(goodsList => {
+            Goods.find({ suid: req.user._id }).sort({ sold: -1 }).then(goodsList => {
+                console.log(goodsList)
                 res.status(200).json(goodsList);
             }).catch(err => {
                 res.status(500).json({

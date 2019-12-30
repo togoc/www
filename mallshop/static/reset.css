@@ -171,3 +171,18 @@ table {
     text-align: center;
 }
 
+.v-modal {
+    z-index: 3333 !important;
+}
+
+.car_list_bg {
+    z-index: 2001 !important;
+}
+
+.shop_car .v-modal {
+    z-index: 2000 !important;
+}
+
+.goods_picker_nav {
+    z-index: 3334 !important;
+}
