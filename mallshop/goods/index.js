@@ -15,46 +15,44 @@ module.exports = app => {
 
 
 
-
-
         req.body.suid = req.user._id
-            // console.log(req.user)
+        // console.log(req.user)
 
         // 判断(同一个商家 不能有同名商品)
         Goods.findOne({ suid: req.user._id, _id: req.body._id }, ['_id']).then(goods => {
-                if (goods) {
-                    Goods.updateOne({ _id: goods._id }, req.body).then(newGoods => {
-                        res.status(201).json({
-                            message: '商品修改成功',
-                            loadId: goods._id
-                        });
-                    }).catch(err => {
-                        res.status(500).json({
-                            message: '数据库储存出错',
-                            err
-                        });
-                    })
-                } else {
-                    let good = new Goods({
-                        ...req.body
-                    })
-                    good.save().then(good => {
-                        res.status(201).json({
-                            message: '商品存储成功',
-                            loadId: good._id
-                        });
-                    }).catch(err => res.status(500).json({
+            if (goods) {
+                Goods.updateOne({ _id: goods._id }, req.body).then(newGoods => {
+                    res.status(201).json({
+                        message: '商品修改成功',
+                        loadId: goods._id
+                    });
+                }).catch(err => {
+                    res.status(500).json({
                         message: '数据库储存出错',
                         err
-                    }))
-                }
+                    });
+                })
+            } else {
+                let good = new Goods({
+                    ...req.body
+                })
+                good.save().then(good => {
+                    res.status(201).json({
+                        message: '商品存储成功',
+                        loadId: good._id
+                    });
+                }).catch(err => res.status(500).json({
+                    message: '数据库储存出错',
+                    err
+                }))
+            }
 
-            }).catch(err => {
-                res.status(500).json({
-                    message: '数据库储存出错'
-                });
-            })
-            // 存储数据库 
+        }).catch(err => {
+            res.status(500).json({
+                message: '数据库储存出错'
+            });
+        })
+        // 存储数据库 
 
 
     });
@@ -64,7 +62,6 @@ module.exports = app => {
         let { index } = req.body
         if (req.body.type === 'business') {
             Goods.find({ suid: req.user._id }).sort({ sold: -1 }).then(goodsList => {
-                console.log(goodsList)
                 res.status(200).json(goodsList);
             }).catch(err => {
                 res.status(500).json({
@@ -91,21 +88,24 @@ module.exports = app => {
 
     router.get('/mallshop/goodsitem', passport.authenticate('jwt', { session: false }), (req, res) => {
         let { id } = req.query
-        try {
-            Goods.findOne({ _id: id }).then(item => {
-                if (item) {
-                    res.status(200).json(item);
-                }
-            })
-        } catch (error) {
-            res.status(500).json({
-                message: '数据库储存出错',
-                error
-            });
-        }
+        if (id)
+            try {
+                Goods.findOne({ _id: id }).then(item => {
+                    if (item) {
+                        res.status(200).json(item);
+                    }
+                })
+            } catch (error) {
+                res.status(500).json({
+                    message: '数据库储存出错',
+                    error
+                });
+            }
+        else
+            res.status(200).json({ message: 'no id' });
     });
 
-
+   
 
 
     app.use(router);

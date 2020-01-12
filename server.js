@@ -4,15 +4,14 @@ const app = express()
 
 
 //启用gzip
-app.use(compression());
-// app.use(compression({ filter: shouldCompress }))
+// app.use(compression());
+app.use(compression({ filter: shouldCompress }))
 
 function shouldCompress(req, res) {
     if (req.headers['x-no-compression']) {
         // 这里就过滤掉了请求头包含'x-no-compression'
         return false
     }
-
     return compression.filter(req, res)
 }
 
@@ -23,6 +22,9 @@ app.use(bodyparser.json())
 
 //http https 
 require('./https/router')(app)
+
+// test
+require('./test')(app)
 
 //react-demo1
 require('./react-demo1-build/router')(app)
@@ -38,8 +40,12 @@ require('./vue-pro/router')(app)
 //element-ui
 require('./element-ui/router')(app)
 
-//login
+//login/register
 require('./passport')(app)
 
 //mallshop
 require('./mallshop/router')(app)
+
+
+//sms
+// require('./sms')(app)

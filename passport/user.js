@@ -4,16 +4,13 @@ const router = express.Router()
 const gravatar = require('gravatar')
 const jwt = require('jsonwebtoken')
 const config = require("../config")
-    //加密
+//加密
 const bcrypt = require("bcryptjs")
 
 module.exports = app => {
 
-    //  测试: $router : /users/test
-    router.get("/test", (req, res) => {
-            res.send("ok test")
-        })
-        //  注册: $router : /users/register
+
+    //  注册: $router : /users/register
     router.post("/register", (req, res) => {
         console.log(req.body)
         if (!req.body.name && !req.body.email) return res.status(401).json({ message: '缺少邮箱和用户名' });
@@ -30,8 +27,8 @@ module.exports = app => {
                     password: req.body.password
                 })
                 if (req.body.password) {
-                    bcrypt.genSalt(10, function(err, salt) {
-                        bcrypt.hash(newUser.password, salt, function(err, hash) {
+                    bcrypt.genSalt(10, function (err, salt) {
+                        bcrypt.hash(newUser.password, salt, function (err, hash) {
                             if (err) throw err;
                             newUser.password = hash
                             newUser.save().then(re => res.status(200).json({

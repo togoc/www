@@ -8,7 +8,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormItem */ \"./src/components/form/FormItem.vue\");\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  props: {\n    state: Array\n  },\n  components: {\n    FormItem: _FormItem__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n  },\n  mounted: function mounted() {\n    console.log(this.state);\n  },\n  methods: {\n    cancel: function cancel() {\n      console.log(1);\n    }\n  }\n});\n\n//# sourceURL=webpack:///./src/components/form/State2.vue?./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormItem */ \"./src/components/form/FormItem.vue\");\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  props: {\n    state: Array\n  },\n  components: {\n    FormItem: _FormItem__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n  },\n  mounted: function mounted() {},\n  methods: {\n    cancel: function cancel() {\n      console.log(1);\n    }\n  }\n});\n\n//# sourceURL=webpack:///./src/components/form/State2.vue?./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
 
 /***/ }),
 

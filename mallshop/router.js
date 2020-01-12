@@ -15,5 +15,8 @@ module.exports = (app) => {
     // 添加商品
     require('./goods')(app)
 
+    //获取首页轮播图
+    require('./swiper')(app)
+
 
 }

@@ -14,6 +14,4 @@ module.exports = (app) => {
     app.use(router);
 
 
-
-
 }
