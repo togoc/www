@@ -65,7 +65,7 @@ module.exports = app => {
                     .then(isMatch => {
                         if (isMatch) {
                             let rule = { id: user.id, name: user.name, identity: user.identity, avatar: user.avatar }
-                            jwt.sign(rule, config.secret, { expiresIn: 3600 }, (err, token) => {
+                            jwt.sign(rule, config.secret, { expiresIn: config.passPortTimeOut }, (err, token) => {
                                 res.json({
                                     success: true,
                                     token: "Bearer " + token
@@ -80,7 +80,7 @@ module.exports = app => {
                     })
             } else {
                 let { name, _id, email } = user
-                jwt.sign({ name, _id, email }, config.secret, { expiresIn: 3600 }, (err, token) => {
+                jwt.sign({ name, _id, email }, config.secret, { expiresIn: config.passPortTimeOut }, (err, token) => {
                     res.json({
                         success: true,
                         token: "Bearer " + token
