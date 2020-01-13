@@ -20,18 +20,21 @@ module.exports = (app) => {
     });
 
 
-    Cate.find({
-        image_src: {
-            $regex: /icon_index_nav_2@2x\.png/ig
-        }
-    }).then(list => {
-        console.log(list)
-        list.forEach(v => {
-            v.image_src = v.image_src.replace(/icon_index_nav_2@2x\.png/ig, 'icon_index_nav_2@2x.png')
-            // v.save()
+    //修改导入的数据
+    if (process.env.NODE_ENV === 'development') {
+        Cate.find({
+            image_src: {
+                $regex: /https:\/\/api\.zbztb\.cn\/pyg/ig
+            }
+        }).then(list => {
+            console.log(list)
+            list.forEach(v => {
+                v.image_src = v.image_src.replace(/https:\/\/api\.zbztb\.cn\/pyg/ig, 'http://106.13.184.92/mallshop/img/cate')
+                v.save()
+            })
+            console.log(list)
         })
-        console.log(list)
-    })
+    }
 
     app.use(router);
 }
