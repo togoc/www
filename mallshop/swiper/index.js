@@ -61,8 +61,8 @@ module.exports = (app) => {
                             if (v2.cat_icon) {
                                 // v2.cat_icon = v2.cat_icon.replace(/https:\/\/api\.zbztb\.cn\/full/, 'http://106.13.184.92/mallshop/img/categories')
                                 // v.markModified('children') //如果是数组必须使用标记才能修改
-                                let str1 = '<img src="' + v2.cat_icon + '" alt="">'
-                                str += str1
+                                // let str1 = '<img src="' + v2.cat_icon + '" alt="">'
+                                // str += str1
                                 console.log(v2.cat_icon)
                             }
                         })
