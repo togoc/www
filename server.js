@@ -20,6 +20,8 @@ const bodyparser = require('body-parser');
 app.use(bodyparser.urlencoded({ extende: false }));
 app.use(bodyparser.json())
 
+app.use('/', express.static(__dirname));
+
 //http https 
 require('./https/router')(app)
 

@@ -2,7 +2,9 @@ var mongoose = require("mongoose")
 var Schema = mongoose.Schema
 
 const mallshop_floorlists = Schema({
-
+    name: {
+        type: String
+    },
     floor_title: {
         type: Array
     },
