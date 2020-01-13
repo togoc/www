@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5e1bff4ed5ab6d368498ae83"},"name":"分类","image_src":"https://api.zbztb.cn/pyg/icon_index_nav_4@2x.png","open_type":"switchTab","navigator_url":"/pages/category/index"}
+{"_id":{"$oid":"5e1bff65d5ab6d368498ae85"},"name":"秒杀拍","image_src":"https://api.zbztb.cn/pyg/icon_index_nav_3@2x.png"}
+{"_id":{"$oid":"5e1bff76d5ab6d368498ae87"},"name":"超市购","image_src":"https://api.zbztb.cn/pyg/icon_index_nav_2@2x.png"}
+{"_id":{"$oid":"5e1bff82d5ab6d368498ae89"},"name":"母婴品","image_src":"https://api.zbztb.cn/pyg/icon_index_nav_1@2x.png"}
