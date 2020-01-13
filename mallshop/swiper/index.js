@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require("passport")
 const Swiper = require('../db/db_mallshop_swiperList')
 const Cate = require("../db/db_mallshop_catitem")
+const Floors = require("../db/db_mallshop_floorList")
 
 
 const router = express.Router()
@@ -22,18 +23,31 @@ module.exports = (app) => {
 
     //修改导入的数据
     if (process.env.NODE_ENV === 'development') {
-        Cate.find({
-            image_src: {
-                $regex: /https:\/\/api\.zbztb\.cn\/pyg/ig
-            }
-        }).then(list => {
-            console.log(list)
-            list.forEach(v => {
-                v.image_src = v.image_src.replace(/https:\/\/api\.zbztb\.cn\/pyg/ig, 'http://106.13.184.92/mallshop/img/cate')
-                v.save()
+        // Cate.find({
+        //     image_src: {
+        //         $regex: /https:\/\/api\.zbztb\.cn\/pyg/ig
+        //     }
+        // }).then(list => {
+        //     console.log(list)
+        //     list.forEach(v => {
+        //         v.image_src = v.image_src.replace(/https:\/\/api\.zbztb\.cn\/pyg/ig, 'http://106.13.184.92/mallshop/img/cate')
+        //         v.save()
+        //     })
+        //     console.log(list)
+        // })
+        Floors.find({}).then(floors => {
+            floors.forEach(v => {
+                v.floor_title.forEach(ftitem => {
+
+                    ftitem.image_src = ftitem.image_src.replace(/https:\/\/api\.zbztb\.cn\/pyg/gi, '')
+                    console.log(ftitem.image_src)
+                })
+                v.product_list.forEach(ftitem => {
+                    console.log(ftitem.image_src)
+                })
             })
-            console.log(list)
         })
+
     }
 
     app.use(router);
