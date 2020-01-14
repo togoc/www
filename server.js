@@ -51,3 +51,4 @@ require('./mallshop/router')(app)
 
 //sms
 // require('./sms')(app)
+
