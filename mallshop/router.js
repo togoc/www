@@ -16,7 +16,7 @@ module.exports = (app) => {
     require('./goods')(app)
 
     //获取首页轮播图
-    require('./swiper')(app)
+    require('./list')(app)
 
 
 }
