@@ -4,9 +4,6 @@ const User = require('../../passport/db_user')
 const router = express.Router()
 module.exports = app => {
 
-    router.get('/test', (req, res) => {
-        res.send("ok");
-    });
     router.post('/login', (req, res) => {
         User.findOne({ email: req.body.email }).then((user) => {
             if (user) {

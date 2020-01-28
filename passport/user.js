@@ -54,19 +54,28 @@ module.exports = app => {
 
     //  登录: $router : /users/register
     router.post("/login", (req, res) => {
-        let { email, password, name } = req.body
+        let { email, password, name, username } = req.body
+        if (username)
+            name = username
         User.findOne(email ? { email } : { name }).then(user => {
             if (!user)
-                return res.status(401).json({ message: "用户不存在!" })
+                return res.status(200).json({
+                    status: 0,
+                    message: "用户不存在!"
+                })
             if (user.password) {
                 console.log(password)
-                if (!password) return res.status(401).json({ message: "密码错误1!" })
+                if (!password) return res.status(401).json({
+                    status: 0,
+                    message: "密码错误1!"
+                })
                 bcrypt.compare(password, user.password)
                     .then(isMatch => {
                         if (isMatch) {
                             let rule = { id: user.id, name: user.name, identity: user.identity, avatar: user.avatar }
                             jwt.sign(rule, config.secret, { expiresIn: config.passPortTimeOut }, (err, token) => {
                                 res.json({
+                                    status: 1,
                                     success: true,
                                     token: "Bearer " + token
                                 })
@@ -75,13 +84,18 @@ module.exports = app => {
                                 }
                             })
                         } else {
-                            res.status(401).json({ message: "密码错误2!" })
+                            res.status(200).json({
+                                success: false,
+                                status: 0,
+                                message: "密码错误2!"
+                            })
                         }
                     })
             } else {
                 let { name, _id, email } = user
                 jwt.sign({ name, _id, email }, config.secret, { expiresIn: config.passPortTimeOut }, (err, token) => {
                     res.json({
+                        status: 1,
                         success: true,
                         token: "Bearer " + token
                     })
@@ -91,7 +105,11 @@ module.exports = app => {
                 })
             }
         }).catch(err => {
-            res.status(500).json({ message: "数据库请求错误", err })
+            res.status(500).json({
+                success: false,
+                status: 0,
+                message: "服务器出错", err
+            })
         })
     })
 

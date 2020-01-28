@@ -4,7 +4,6 @@ const passport = require("passport")
 const BuyList = require('../db/db_mallshop_buyList')
 const Goods = require('../db/db_mallshop_goods')
 module.exports = app => {
-
     router.post('/mallshop/addbuylist', passport.authenticate("jwt", { session: false }), (req, res) => {
         try {
             new Promise((rs, rj) => {
