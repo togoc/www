@@ -96,7 +96,7 @@ module.exports = (app) => {
         })
     });
 
-    /// 'react-demo1'
+    // 'react-demo1'
     app.use(routers.react_demo1, express.static(__dirname + '/'));
     app.use(router);
 

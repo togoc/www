@@ -1,12 +1,25 @@
 const express = require('express');
 var compression = require('compression')
+const history = require('connect-history-api-fallback');
 const app = express()
+
+// history mode
+/**
+ * 所有网页接口:
+ * /mallshop 
+ * /vue-pro 
+ * /element-ui 
+ * /react-demo1
+ *  /vue-todo
+ */
+app.use('/', history());
+app.use('/mallshop', history());
+app.use('/vue-pro', history());
+
 
 
 //启用gzip
 // app.use(compression());
-app.use(compression({ filter: shouldCompress }))
-
 function shouldCompress(req, res) {
     if (req.headers['x-no-compression']) {
         // 这里就过滤掉了请求头包含'x-no-compression'
@@ -14,13 +27,13 @@ function shouldCompress(req, res) {
     }
     return compression.filter(req, res)
 }
+app.use(compression({ filter: shouldCompress }))
 
 //post body
 const bodyparser = require('body-parser');
 app.use(bodyparser.urlencoded({ extende: false }));
 app.use(bodyparser.json())
 
-app.use('/', express.static(__dirname));
 
 //http https 
 require('./https/router')(app)

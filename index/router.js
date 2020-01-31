@@ -8,6 +8,7 @@ module.exports = (app) => {
         })
     });
 
+    app.use('/', express.static(__dirname+'/page'));
     app.use(router);
 }
 
