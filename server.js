@@ -49,6 +49,9 @@ require('./passport')(app)
 require('./mallshop/router')(app)
 
 
+//主页
+require('./index/router')(app)
+
 //sms
 // require('./sms')(app)
 
