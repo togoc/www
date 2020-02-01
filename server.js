@@ -12,7 +12,7 @@ const app = express()
  * /react-demo1
  *  /vue-todo
  */
-app.use('/', history());
+app.use('/index', history());
 app.use('/mallshop', history());
 app.use('/vue-pro', history());
 
