@@ -3,15 +3,29 @@ var compression = require('compression')
 const history = require('connect-history-api-fallback');
 const app = express()
 
+// 过滤
+app.get('*', (req, res, next) => {
+    const passURL = [
+        '/index',
+        '/mallshop',
+        '/vue-pro',
+        '/element-ui',
+        '/react-demo1',
+        '/vue-todo'
+    ]
+    let t = 0
+    passURL.map(v => {
+        if (req.url.indexOf(v) === -1) {
+            t++
+        } else {
+            next()
+        }
+        t === passURL.length && res.redirect('/index/');
+    })
+
+});
+
 // history mode
-/**
- * 所有网页接口:
- * /mallshop 
- * /vue-pro 
- * /element-ui 
- * /react-demo1
- *  /vue-todo
- */
 app.use('/index', history());
 app.use('/mallshop', history());
 app.use('/vue-pro', history());
