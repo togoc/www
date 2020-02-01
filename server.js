@@ -1,10 +1,12 @@
 const express = require('express');
-var compression = require('compression')
+const compression = require('compression')
 const history = require('connect-history-api-fallback');
+const routers = require('./routers')
 const app = express()
 
 // 过滤
 app.get('*', (req, res, next) => {
+    let { url } = req
     const passURL = [
         '/index',
         '/mallshop',
@@ -15,25 +17,27 @@ app.get('*', (req, res, next) => {
     ]
     let t = 0
     passURL.map(v => {
-        if (req.url.indexOf(v) === -1) {
+        if (url.indexOf(v) === -1) {
             t++
+        } else if (url === '/vue-pro' || url === '/element-ui' || url === '/mallshop') {
+            res.redirect(url + '/')
         } else {
             next()
         }
         t === passURL.length && res.redirect('/index/');
     })
-
 });
 
 // history mode
 app.use('/index', history());
+app.use(routers.elment, history());
 app.use('/mallshop', history());
 app.use('/vue-pro', history());
 
 
 
 //启用gzip
-// app.use(compression());
+app.use(compression());
 function shouldCompress(req, res) {
     if (req.headers['x-no-compression']) {
         // 这里就过滤掉了请求头包含'x-no-compression'
