@@ -5,28 +5,28 @@ const routers = require('./routers')
 const app = express()
 
 // 过滤
-app.get('*', (req, res, next) => {
-    let { url } = req
-    const passURL = [
-        '/index',
-        '/mallshop',
-        '/vue-pro',
-        '/element-ui',
-        '/react-demo1',
-        '/vue-todo'
-    ]
-    let t = 0
-    passURL.map(v => {
-        if (url.indexOf(v) === -1) {
-            t++
-        } else if (url === '/vue-pro' || url === '/element-ui' || url === '/mallshop') {
-            res.redirect(url + '/')
-        } else {
-            next()
-        }
-        t === passURL.length && res.redirect('/index/');
-    })
-});
+// app.get('*', (req, res, next) => {
+//     let { url } = req
+//     const passURL = [
+//         '/index',
+//         '/mallshop',
+//         '/vue-pro',
+//         '/element-ui',
+//         '/react-demo1',
+//         '/vue-todo'
+//     ]
+//     let t = 0
+//     passURL.map(v => {
+//         if (url.indexOf(v) === -1) {
+//             t++
+//         } else if (url === '/vue-pro' || url === '/element-ui' || url === '/mallshop') {
+//             res.redirect(url + '/')
+//         } else {
+//             next()
+//         }
+//         t === passURL.length && res.redirect('/index/');
+//     })
+// });
 
 // history mode
 app.use('/index', history());

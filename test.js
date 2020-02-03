@@ -13,13 +13,14 @@ module.exports = (app) => {
     // console.log(reg)
 
 
-  
+
 
     // db.mallshop_catitems.find({
     //     image_src: {
     //         $regex: /icon_index_nav_2@2x\.png/ig
     //     }
     // })
+
 
 
 }
