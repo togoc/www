@@ -11,7 +11,8 @@ module.exports = (app) => {
     });
 
     router.get('/chart', (req, res) => {
-        let data = fs.readFileSync('utils/dev/dev.txt', 'utf8')
+        console.log(__dirname)
+        let data = fs.readFileSync('./utils/dev/dev.txt', 'utf8')
         res.send(data);
     });
 
