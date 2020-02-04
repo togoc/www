@@ -1,6 +1,6 @@
 const express = require('express');
 const fs = require('fs')
-const request = require('request')
+const path = require('path')
 const DB = require('./db')
 const router = express.Router()
 module.exports = (app) => {
@@ -11,8 +11,7 @@ module.exports = (app) => {
     });
 
     router.get('/chart', (req, res) => {
-        console.log(__dirname)
-        let data = fs.readFileSync('./utils/dev/dev.txt', 'utf8')
+        let data = fs.readFileSync(path.resolve('utils/dev/dev.txt'), 'utf8')
         res.send(data);
     });
 
