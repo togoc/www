@@ -1,5 +1,5 @@
 let host = null
-process.env.NODE_env === 'development' ? host = '127.0.0.1' : host = '106.13.184.92'
+process.env.NODE_env !== 'development' ? host = '127.0.0.1' : host = '106.13.184.92'
 module.exports = {
     dbURI: "mongodb://" + host + ":27017/www",
     localhost: 'http://' + host,

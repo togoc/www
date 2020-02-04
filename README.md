@@ -1,4 +1,4 @@
-## 古诗网 [demo1]( http://106.13.184.92/react-demo1/) [源码](https://github.com/togoc/react)
+## 古诗网 [demo1]( http://106.13.184.92/react-demo1/) [源码](https://github.com/togoc/react-article)
 ### 客户端
 + 主要 : react
   + 基础内容

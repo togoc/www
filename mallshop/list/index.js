@@ -103,46 +103,7 @@ module.exports = (app) => {
         // }))
     });
 
-    //修改导入的数据
-    if (process.env.NODE_ENV == 'development') {
-        const procy = require('../../procy')
-        const fs = require('fs')
-        let arr = []
-        // Categories.find({}).then(res => {
-        // res.map(v => {
-        //     if (v.children) {
-        //         v.children.map(v1 => {
-        //             if (v1.children) {
-        //                 v1.children.map(v2 => {
-        //                     if (v2.cat_icon) {
-        //                         // arr.push(v2.cat_id)
-        //                         let getGoodsListUrl = 'http://106.13.184.92/login'
-        //                         procy(getGoodsListUrl).then(res => {
-        //                             console.log(res)
-        //                         }).catch(err => {
-        //                             console.log(err)
-        //                         })
-        //                     }
-        //                 })
-        //             }
-        //         })
-        //     }
-        // })
 
-
-
-
-        // async function requeryGoods(url) {
-        //     let res = await procy(url)
-        //     fs.writeFile('tt.txt', JSON.stringify(res.message), { flag: 'a' }, (err) => {
-        //         if (err) {
-        //             console.log(err)
-        //         }
-        //     })
-        // }
-
-
-    }
 
     app.use(router);
 }
