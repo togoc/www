@@ -69,3 +69,6 @@ require('./index/router')(app)
 //sms
 // require('./sms')(app)
 
+// 搜索
+require('./react-search/router')(app)
+

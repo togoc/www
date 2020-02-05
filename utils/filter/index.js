@@ -12,7 +12,8 @@ module.exports = (app) => {
             '/vue-pro',
             '/element-ui',
             '/react-demo1',
-            '/vue-todo'
+            '/vue-todo',
+            '/api'
         ]
         let t = 0
         passURL.map(v => {
