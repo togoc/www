@@ -1,39 +1,12 @@
 const express = require('express');
 const compression = require('compression')
 const history = require('connect-history-api-fallback');
+const bodyparser = require('body-parser');
 const routers = require('./routers')
 const app = express()
 
-// 过滤
-app.get('*', (req, res, next) => {
-    let { url } = req
-    if (url.indexOf('.') !== -1) {
-        next()
-        return
-    }
-
-    const passURL = [
-        '/index',
-        '/mallshop',
-        '/vue-pro',
-        '/element-ui',
-        '/react-demo1',
-        '/vue-todo'
-    ]
-    let t = 0
-    passURL.map(v => {
-        if (url.indexOf(v) === -1) {
-            t++
-        } else if (url === '/vue-pro' || url === '/element-ui' || url === '/mallshop' || url === '/index') {
-            res.redirect(url + '/')
-            return
-        } else {
-            next()
-            return
-        }
-        t === passURL.length && res.redirect('/index/');
-    })
-});
+// 过滤(必须放前面)
+require('./utils/filter/index')(app)
 
 // history mode
 app.use('/index', history());
@@ -55,9 +28,12 @@ function shouldCompress(req, res) {
 app.use(compression({ filter: shouldCompress }))
 
 //post body
-const bodyparser = require('body-parser');
 app.use(bodyparser.urlencoded({ extende: false }));
 app.use(bodyparser.json())
+
+
+
+
 
 
 //http https 
