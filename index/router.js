@@ -12,7 +12,7 @@ module.exports = (app) => {
 
     router.get('/chart', (req, res) => {
         let data = fs.readFileSync(path.resolve('utils/dev/dev.txt'), 'utf8')
-        res.send(path.resolve('utils/dev/dev.txt'));
+        res.send(data);
     });
 
     app.use('/index', express.static(__dirname));
