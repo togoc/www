@@ -13,6 +13,7 @@ app.use('/index', history());
 app.use(routers.elment, history());
 app.use('/mallshop', history());
 app.use('/vue-pro', history());
+app.use('/search', history());
 
 
 

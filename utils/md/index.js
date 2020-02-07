@@ -5,7 +5,6 @@ const fs = require('fs')
  * 给定一个md文件地址,返回html内容.
  */
 module.exports = (url) => {
-    console.log(url)
     if (!url || url.replace(/^\s*|\s*$/g, '') === '') return
     try {
         const data = fs.readFileSync(path.resolve(url), 'utf8')
@@ -14,6 +13,7 @@ module.exports = (url) => {
         return html
     } catch (error) {
         console.log('文件读写错误:' + error)
+        return error
     }
 
 }

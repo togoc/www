@@ -5,8 +5,8 @@ const DB = require('./db/index')
 module.exports = (app) => {
 
     router.get('/detail', (req, res) => {
-        const { id } = req.query
-        res.send(RMD('./react-search/md/test.md'));
+        const { source } = req.query
+        res.send(RMD(`./react-search/md/${source}.md`));
     });
 
     router.get('/order-list', (req, res) => {
@@ -50,7 +50,6 @@ module.exports = (app) => {
     });
 
 
-
     router.post('/add', (req, res) => {
         let { keyword, main, git, source, } = req.body
         let item = new DB.list({
@@ -61,6 +60,7 @@ module.exports = (app) => {
     });
 
     app.use('/api/search', router);
+    app.use('/react-search', express.static(__dirname));
 }
 
 

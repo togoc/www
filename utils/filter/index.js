@@ -13,13 +13,14 @@ module.exports = (app) => {
             '/element-ui',
             '/react-demo1',
             '/vue-todo',
-            '/api'
+            '/api',
+            "/react-search"
         ]
         let t = 0
         passURL.map(v => {
             if (url.indexOf(v) === -1) {
                 t++
-            } else if (url === '/vue-pro' || url === '/element-ui' || url === '/mallshop' || url === '/index') {
+            } else if (url === '/vue-pro' || url === '/element-ui' || url === '/mallshop' || url === '/index' || url === '/react-search') {
                 res.redirect(url + '/')
                 return
             } else {
