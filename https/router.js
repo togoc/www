@@ -13,7 +13,11 @@ module.exports = app => {
 
 
     //https监听3000端口
-    httpsServer.listen(81);
+    httpsServer.listen(81, () => {
+        console.log('https://127.0.0.1:81')
+    });
     //http监听3001端口
-    httpServer.listen(80);
+    httpServer.listen(80, () => {
+        console.log('http://127.0.0.1')
+    });
 }

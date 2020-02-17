@@ -7,7 +7,7 @@ module.exports = (app) => {
 
     router.get('/detail', (req, res) => {
         const { source } = req.query
-        res.send(RMD(`./react-search/md/${source}.md`));
+        res.send(RMD(`./react-search/md/${source.replace(/\.md/, "")}.md`));
     });
 
     router.get('/order-list', async (req, res) => {
