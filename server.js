@@ -35,7 +35,7 @@ app.use(bodyparser.json())
 
 
 app.get('/api/ip', (req, res) => {
-    const url = `https://api.map.baidu.com/location/ip?ak=kgfrM6xjFIT1eFIeGQv6NBcsZsuG3Zq7&ip=${req.ip}&coor=bd09ll`
+    const url = `https://api.map.baidu.com/location/ip?ak=kgfrM6xjFIT1eFIeGQv6NBcsZsuG3Zq7&ip=${req.ip.slice(req.ip.lastIndexOf(":"))}&coor=bd09ll`
     request(url, (err, response, body) => {
         res.status(200).json(body);
     })
