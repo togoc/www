@@ -1,5 +1,6 @@
 module.exports = (app) => {
     app.get('*', (req, res, next) => {
+        console.log(req.ip)
         let { url } = req
 
         if (url.indexOf('.') !== -1) {

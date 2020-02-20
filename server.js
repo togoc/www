@@ -16,7 +16,6 @@ app.use('/vue-pro', history());
 app.use('/search', history());
 
 
-
 //启用gzip
 app.use(compression());
 function shouldCompress(req, res) {
