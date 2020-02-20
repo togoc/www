@@ -3,6 +3,7 @@ const compression = require('compression')
 const history = require('connect-history-api-fallback');
 const bodyparser = require('body-parser');
 const routers = require('./routers')
+const request = require("request")
 const app = express()
 
 // 过滤(必须放前面)
