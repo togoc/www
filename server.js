@@ -49,6 +49,14 @@ app.get('/api/pois', (req, res) => {
     })
 });
 
+// 经纬度检索
+app.get('/api/pois/geohash', (req, res) => {
+    const { query, location } = req.query
+    const url = `http://api.map.baidu.com/place/v2/search?query=${encodeURI(query)}&location=${encodeURI(location)}&radius=3000&output=json&ak=kgfrM6xjFIT1eFIeGQv6NBcsZsuG3Zq7`
+    request(url, (err, response, body) => {
+        res.status(200).json(body);
+    })
+});
 
 //http https 
 require('./https/router')(app)
