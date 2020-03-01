@@ -34,7 +34,7 @@ var ListSchema = Schema({
     },
     datetime: {
         type: Number,
-        default: Date.now()
+        default: Date.now
     },
 })
 

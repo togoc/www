@@ -7,7 +7,7 @@ const fs = require('fs')
 module.exports = (url) => {
     if (!url || url.replace(/^\s*|\s*$/g, '') === '') return
     try {
-        const data = fs.readFileSync(path.resolve(url), 'utf8')
+        const data = fs.readFileSync(path.resolve(__dirname, url), 'utf8')
         converter = new showdown.Converter()
         html = converter.makeHtml(data);
         return html
