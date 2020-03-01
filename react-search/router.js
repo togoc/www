@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router()
 const RMD = require('../utils/md/index')
+const path = require('path')
 const request = require('../procy')
 const DB = require('./db/index')
 module.exports = (app) => {
 
     router.get('/detail', (req, res) => {
         const { source } = req.query
-        res.send(RMD(`./react-search/md/${source.replace(/\.md/, "")}.md`));
+        res.send(RMD(path.resolve(__dirname, './md') + `/${source.replace(/\.md/, "")}.md`));
     });
 
     router.get('/order-list', async (req, res) => {

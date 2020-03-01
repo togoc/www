@@ -1,5 +1,4 @@
 const showdown = require('showdown')
-const path = require('path')
 const fs = require('fs')
 /**
  * 给定一个md文件地址,返回html内容.
@@ -7,7 +6,7 @@ const fs = require('fs')
 module.exports = (url) => {
     if (!url || url.replace(/^\s*|\s*$/g, '') === '') return
     try {
-        const data = fs.readFileSync(path.resolve(__dirname, url), 'utf8')
+        const data = fs.readFileSync(url, 'utf8')
         converter = new showdown.Converter()
         html = converter.makeHtml(data);
         return html
