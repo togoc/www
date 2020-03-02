@@ -18,7 +18,7 @@ app.use('/search', history());
 
 
 //启用gzip
-app.use(compression());
+// app.use(compression());
 function shouldCompress(req, res) {
     if (req.headers['x-no-compression']) {
         // 这里就过滤掉了请求头包含'x-no-compression'

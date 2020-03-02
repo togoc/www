@@ -9,9 +9,8 @@ module.exports = (app) => {
             res.status(200).json(list);;
         })
     });
-
     router.get('/chart', (req, res) => {
-        let data = fs.readFileSync(path.resolve('utils/dev/dev.txt'), 'utf8')
+        let data = fs.readFileSync(path.resolve(__dirname, '../utils/dev/dev.txt'), 'utf8')
         res.send(data);
     });
 
